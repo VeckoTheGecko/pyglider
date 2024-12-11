@@ -31,6 +31,7 @@ Install
 getting-started-seaexplorer
 getting-started-slocum
 pyglider/pyglider
+contributing
 
 ```
 
