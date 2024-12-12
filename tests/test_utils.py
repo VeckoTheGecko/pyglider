@@ -7,11 +7,10 @@ import sys
 
 import pyglider.utils as utils
 
-library_dir = Path(__file__).parent.parent.absolute()
-example_dir = library_dir / 'tests/example-data/'
+from tests.utils import LIBRARY_DIR, EXAMPLE_DIR
 
-test_data = xr.open_dataset(library_dir / 'tests/expected/example-seaexplorer/L0-timeseries/dfo-eva035-20190718.nc')
-deploymentyaml = example_dir / 'example-seaexplorer-legato-flntu-arod-ad2cp/deploymentRealtime.yml'
+test_data = xr.open_dataset(LIBRARY_DIR / 'tests/expected/example-seaexplorer/L0-timeseries/dfo-eva035-20190718.nc')
+deploymentyaml = EXAMPLE_DIR / 'example-seaexplorer-legato-flntu-arod-ad2cp/deploymentRealtime.yml'
 with open(deploymentyaml) as fin:
     deployment = yaml.safe_load(fin)
 metadata = deployment['metadata']

@@ -11,22 +11,20 @@ import pyglider.ncprocess as ncprocess
 import pyglider.seaexplorer as seaexplorer
 import pyglider.slocum as slocum
 
+from tests.utils import LIBRARY_DIR, EXAMPLE_DIR
 
-
-library_dir = Path(__file__).parent.parent.absolute()
-example_dir = library_dir / 'tests/example-data/'
 
 # Create an L0 timeseries from slocum data and test that the resulting netcdf is
 # identical to the test data
-cacdir = example_dir / 'example-slocum/cac/'
-sensorlist = str(example_dir / 'example-slocum/dfo-rosie713_sensors.txt')
-binarydir = str(example_dir / 'example-slocum/realtime_raw/') + '/'
-rawdir_slocum = str(example_dir / 'example-slocum/realtime_rawnc/') + '/'
-deploymentyaml_slocum = str(example_dir / 'example-slocum/deploymentRealtime.yml')
-tsdir = str(example_dir / 'example-slocum/L0-timeseries/') + '/'
+cacdir = EXAMPLE_DIR / 'example-slocum/cac/'
+sensorlist = str(EXAMPLE_DIR / 'example-slocum/dfo-rosie713_sensors.txt')
+binarydir = str(EXAMPLE_DIR / 'example-slocum/realtime_raw/') + '/'
+rawdir_slocum = str(EXAMPLE_DIR / 'example-slocum/realtime_rawnc/') + '/'
+deploymentyaml_slocum = str(EXAMPLE_DIR / 'example-slocum/deploymentRealtime.yml')
+tsdir = str(EXAMPLE_DIR / 'example-slocum/L0-timeseries/') + '/'
 scisuffix = 'tbd'
 glidersuffix = 'sbd'
-profiledir = str(example_dir /  'example-slocum/L0-profiles/')
+profiledir = str(EXAMPLE_DIR /  'example-slocum/L0-profiles/')
 do_direct = True
 
 # This needs to get run every time the tests are run, so do at top level:
@@ -42,7 +40,7 @@ ncprocess.extract_timeseries_profiles(outname_slocum, profiledir, deploymentyaml
 output_slocum = xr.open_dataset(outname_slocum)
 # Open test data file
 test_data_slocum = xr.open_dataset(
-    library_dir /
+    LIBRARY_DIR /
     'tests/expected/example-slocum/L0-timeseries/dfo-rosie713-20190615.nc')
 variables_slocum = list(output_slocum.variables)
 
@@ -90,7 +88,7 @@ def test_profiles_compliant():
     checker_names = ['gliderdac', 'cf:1.8']
     verbose = 0
     criteria = 'normal'
-    output_filename = example_dir / 'report.json'
+    output_filename = EXAMPLE_DIR / 'report.json'
     output_format = 'json'
     """
     Inputs to ComplianceChecker.run_checker
@@ -132,7 +130,7 @@ def test_timeseries_compliant():
     checker_names = ['cf:1.8']
     verbose = 0
     criteria = 'normal'
-    output_filename = example_dir / 'report.json'
+    output_filename = EXAMPLE_DIR / 'report.json'
     output_format = 'json'
     """
     Inputs to ComplianceChecker.run_checker
