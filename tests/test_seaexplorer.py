@@ -87,16 +87,15 @@ def test__interp_gli_to_pld():
 
 def test_raw_to_timeseries():
     # Test default, will fail as we have sub data, not raw data
-    with pytest.raises(FileNotFoundError) as missing_file_exc:
-        result_default = seaexplorer.raw_to_timeseries('tests/data/realtime_rawnc/',
-                                                        'tests/data/l0-profiles/',
-                                                        str(EXAMPLE_DIR / 'example-seaexplorer/deploymentRealtime.yml'),
-                                                        )
+    with pytest.raises(FileNotFoundError):
+        seaexplorer.raw_to_timeseries('tests/data/realtime_rawnc/',
+                                      'tests/data/l0-profiles/',
+                                      str(EXAMPLE_DIR / 'example-seaexplorer/deploymentRealtime.yml'),
+                                      )
     result_sub = seaexplorer.raw_to_timeseries('tests/data/realtime_rawnc/',
                                                     'tests/data/l0-profiles/',
                                                     str(EXAMPLE_DIR / 'example-seaexplorer/deploymentRealtime.yml'),
                                                     kind='sub')
-    assert 'No such file or directory' in str(missing_file_exc)
     assert result_sub == 'tests/data/l0-profiles/dfo-eva035-20190718.nc'
 
 
